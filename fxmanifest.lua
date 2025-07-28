@@ -18,7 +18,7 @@ description 'A Vehicle Harness Resource For FiveM'
 
 ox_lib 'locale'
 
-shared_script {
+shared_scripts {
     'config.lua',
     '@ox_lib/init.lua',
 }
