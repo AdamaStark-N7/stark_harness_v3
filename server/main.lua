@@ -177,3 +177,66 @@ RegisterNetEvent('stark_harness:server:installHarness', function(harnessInfo, pl
         end
     end
 end)
+
+RegisterNetEvent('stark_harness:server:removeHarness', function(plate)
+    local src = source
+    if plate == nil then return end
+    local Player = QBCore.Functions.GetPlayer(src)
+    local result = MySQL.query.await('SELECT * FROM player_vehicles WHERE plate = ?', { plate })
+    if result ~= nil and #(result) > 0 then
+        if (result[1].citizenid == Player.PlayerData.citizenid) then
+            if (result[1].harness) ~= nil then
+                MySQL.update('UPDATE player_vehicles SET harness = ? WHERE plate = ?', { NULL, plate })
+                local harnessInfo = json.decode(result[1].harness)
+                local data = {}
+                if harnessInfo.uses == nil then harnessInfo.uses = 20 end
+                data = {
+                    uses = harnessInfo.uses,
+                    damage = harnessInfo.damage
+                }
+                if Config.Inventory == 'qb' then
+                    exports['qb-inventory']:AddItem(src, 'harness', 1, false, data)
+                    if Config.RemoveWithItem then
+                        Wait(3000)
+                        exports['qb-inventory']:RemoveItem(src, 'removal_tool', 1, false)
+                    end
+                elseif Config.Inventory == 'ps' then
+                    exports['ps-inventory']:AddItem(src, 'harness', 1, false, data)
+                    if Config.RemoveWithItem then
+                        Wait(3000)
+                        exports['ps-inventory']:RemoveItem(src, 'removal_tool', 1, false)
+                    end
+                elseif Config.Inventory == 'ox' then
+                    local ox_inventory = exports.ox_inventory
+                    ox_inventory:AddItem(src, 'harness', 1, data)
+                    if Config.RemoveWithItem then
+                        Wait(3000)
+                        ox_inventory:RemoveItem(src, 'removal_tool', 1)
+                    end
+                end
+                if Config.Notify == 'qb' then
+                    TriggerClientEvent('QBCore:Notify', src, locale('info.successful_removal_description'), 'success')
+                elseif Config.Notify == 'ox' then
+                    TriggerClientEvent('ox_lib:notify', src, {
+                        title = locale('info.successful_removal_title'),
+                        description = locale('info.successful_removal_description'),
+                        postion = 'center-right',
+                        type = 'success'
+                    })
+                elseif Config.Notify == 'lation' then
+                    exports.lation_ui:notify({
+                        title = locale('info.successful_removal_title'),
+                        message = locale('info.successful_removal_description'),
+                        type = 'success',
+                        postion = 'center-right'
+                    })
+                end
+            end
+        else
+            if Config.Notify == 'qb' then
+            elseif Config.Notify == 'ox' then
+            elseif Config.Notify == 'lation' then
+            end
+        end
+    end
+end)

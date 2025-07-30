@@ -1,13 +1,17 @@
 {
     "info": {
         "successful_install_title": "Installation Successful!",
-        "successful_install_description": "The Harness Was Installed Successfully!"
+        "successful_install_description": "The Harness Was Installed Successfully!",
+        "successful_removal_title": "Removal Successful!",
+        "successful_removal_description": "The Harness Was Removed Successfully!"
     },
 
     "error": {
         "unsuccessful_install_title": "Installation Unsuccessful!",
         "unsuccessful_install_description": "You Cannot Install A Harness In A Vehicle You Do Not Own!",
         "installlation_error_title": "Installation Error!",
-        "installation_error_description": "You Already Have A Harness Installed!"
+        "installation_error_description": "You Already Have A Harness Installed!",
+        "unsuccessful_removal_title": "Removal Unsuccessful!",
+        "unsuccessful_removal_description": "You Cannot Remove A Harness From A Vehicle You Do Not Own!"
     }
 }
