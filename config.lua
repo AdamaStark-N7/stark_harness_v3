@@ -4,7 +4,7 @@ Config.VersionCheck = true
 
 Config.Framework = 'qb'
 
-Config.Inventory = 'qb' -- supported: 'qb' or 'ox'
+Config.Inventory = 'qb' -- supported: 'qb', 'ps', or 'ox'
 
 Config.Notify = 'qb' -- supported: 'qb', 'ox', or 'lation'
 

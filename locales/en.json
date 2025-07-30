@@ -1,0 +1,13 @@
+{
+    "info": {
+        "successful_install_title": "Installation Successful!",
+        "successful_install_description": "The Harness Was Installed Successfully!"
+    },
+
+    "error": {
+        "unsuccessful_install_title": "Installation Unsuccessful!",
+        "unsuccessful_install_description": "You Cannot Install A Harness In A Vehicle You Do Not Own!",
+        "installlation_error_title": "Installation Error!",
+        "installation_error_description": "You Already Have A Harness Installed!"
+    }
+}
