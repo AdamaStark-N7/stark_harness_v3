@@ -9,9 +9,6 @@ I would like to thank my dear friend and fellow developer, SneakEOne, for his he
 ## QBCore
 I would like to thank the developers of QBCore for creating a solid RP framework for FiveM servers that allows for easy development of scripts to enhance gameplay.
 
-## QBox
-I would also like to thank the developers of Qbox for creating a solid, alternative RP framework for FiveM servers that allows for easy development of scripts to enhance gameplay.
-
 ## Overextended
 I would like to thank the amazing developers at Overextended for creating stellar resources in both Ox Inventory and Ox Lib.
 
@@ -26,7 +23,7 @@ Lation's UI interface can be purchased here from his Tebex!
 * Link: [Lation Modern UI](https://lationscripts.com/product/modern-ui).
 
 # Description
-Stark Harness is a resource that allows for a persisent safety harness in all personally owned vehicles.
+Stark Harness is a resource that allows for a persisent safety harness in all personally owned player vehicles.
 
 ## Installation
 1. Add stark_harness to your resources folder for your server
@@ -86,7 +83,7 @@ RegisterCommand('toggleseatbelt', function()
     if class == 8 or class == 13 or class == 14 then return end
     local vehicle = GetVehiclePedIsIn(PlayerPedId(), false)
     local plate = QBCore.Functions.GetPlate(vehicle)
-    TriggerServerEvent('stark_harness:server:toggleSeatBelt', plate)
+    TriggerServerEvent('stark_harness:server:ToggleSeatBelt', plate)
 end, false)
 
 RegisterKeyMapping('toggleseatbelt', 'Toggle Seatbelt', 'keyboard', 'B')
@@ -110,7 +107,7 @@ TriggerServerEvent('seatbelt:DoHarnessDamage', harnessHp, harnessData)
 with the following snippet of code:
 
 ```lua
-TriggerServerEvent('stark_harness:server:damageHarness', -1)
+TriggerServerEvent('stark_harness:server:DamageHarness', -1)
 ```
 
 For reference, the following lines should be changed if using the latest version of qb-smallresources: 121, 131, 143, and 153.
@@ -139,7 +136,7 @@ and replace it with the following snippet of code:
 
 ```lua
 QBCore.Functions.CreateUseableItem('harness', function(source, item)
-    TriggerClientEvent('stark_harness:client:installHarness', source, item)
+    TriggerClientEvent('stark_harness:client:InstallHarness', source, item)
 end)
 ```
 
@@ -147,7 +144,7 @@ end)
 
 ```lua
 QBCore.Functions.CreateUseableItem('removal_tool', function(source, item)
-    TriggerClientEvent('stark_harness:client:removeHarness', source, item)
+    TriggerClientEvent('stark_harness:client:RemoveHarness', source, item)
 end)
 ```
 
