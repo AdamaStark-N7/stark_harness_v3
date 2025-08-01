@@ -3,7 +3,9 @@
         "successful_install_title": "Installation Successful!",
         "successful_install_description": "The Harness Was Installed Successfully!",
         "successful_removal_title": "Removal Successful!",
-        "successful_removal_description": "The Harness Was Removed Successfully!"
+        "successful_removal_description": "The Harness Was Removed Successfully!",
+        "progress_name": "install_harness",
+        "progress_label": "Installing Harness..."
     },
 
     "error": {
@@ -16,6 +18,10 @@
         "unsuccessful_mechanic_removal_title": "Mechanic Removal Unsuccessful!",
         "unsuccessful_mechanic_removal_description": "You Cannot Remove A Harness From A Vehicle The Player Does Not Own!",
         "harness_broke_title": "Broken Harness!",
-        "harness_broke_description": "Your Harness Broke!"
+        "harness_broke_description": "Your Harness Broke!",
+        "cancel_installation_title": "Installation Cancelled!",
+        "cancel_installation_description": "The Harness Installation Was Cancelled!",
+        "driver_seat_error_title": "Vehicle Seat Error",
+        "driver_seat_error_description": "You Must Be In The Driver's Seat To Install The Harness!"
     }
 }
