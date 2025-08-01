@@ -110,7 +110,7 @@ with the following snippet of code:
 TriggerServerEvent('stark_harness:server:DamageHarness', -1)
 ```
 
-For reference, the following lines should be changed if using the latest version of qb-smallresources: 121, 131, 143, and 153.
+For reference, the following lines should be changed if using the latest version of qb-smallresources: 129, 139, 151, and 161.
 
 5. In ```qb-smallresources/client/seatbelt.lua```, add the following function snippet at line 79, if using the latest version of qb-smallresources:
 
