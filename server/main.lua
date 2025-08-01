@@ -19,13 +19,13 @@ function hasHarness(plate)
     return harnessInfo
 end
 
-lib.callback.register('stark_harness:server:getHarnessInfo', function(source, plate, harnessInfo)
+lib.callback.register('stark_harness:server:GetHarnessInfo', function(source, plate, harnessInfo)
     if plate == nil then return end
     local harnessInfo = hasHarness(plate)
     return harnessInfo
 end)
 
-RegisterNetEvent('stark_harness:server:installHarness', function(harnessInfo, plate)
+RegisterNetEvent('stark_harness:server:InstallHarness', function(harnessInfo, plate)
     local src = source
     if plate == nil then return end
     local Player = QBCore.Functions.GetPlayer(src)
@@ -178,7 +178,7 @@ RegisterNetEvent('stark_harness:server:installHarness', function(harnessInfo, pl
     end
 end)
 
-RegisterNetEvent('stark_harness:server:removeHarness', function(plate)
+RegisterNetEvent('stark_harness:server:RemoveHarness', function(plate)
     local src = source
     if plate == nil then return end
     local Player = QBCore.Functions.GetPlayer(src)
@@ -318,4 +318,51 @@ RegisterNetEvent('stark_harness:server:removeHarness', function(plate)
             end
         end
     end
+end)
+
+RegisterNetEvent('stark_harness:server:DamageHarness', function(damage, plate)
+    local src = source
+    if plate == nil then
+        local Player = GetPlayerPed(src)
+        local Vehicle = GetVehiclePedIsIn(Player, false)
+        plate = GetVehicleNumberPlateText(Vehicle)
+    end
+    if plate == nil then return end
+    local result = MySQL.query.await('SELECT * FROM player_vehicles WHERE plate = ?', { plate })
+    if result ~= nil and #(result) > 0 then
+        local harnessInfo = json.decode(result[1].harness)
+        harnessInfo.damage = (harnessInfo.damage - math.abs(damage))
+        if harnessInfo.damage <= 0 then
+            MySQL.update('UPDATE player_vehicles SET harness = ? WHERE plate = ?', { NULL, plate })
+            if Config.Notify == 'qb' then
+                TriggerClientEvent('QBCore:Notify', src, locale('error.harness_broke_description'), 'error')
+            elseif Config.Notify == 'ox' then
+                TriggerClientEvent('ox_lib:notify', src, {
+                    title = locale('error.harness_broke_title'),
+                    description = locale('error.harness_broke_description'),
+                    postion = 'center-right',
+                    type = 'error'
+                })
+            elseif Config.Notify == 'lation' then
+                exports.lation_ui:notify({
+                    title = locale('error.harness_broke_title'),
+                    message = locale('error.harness_broke_description'),
+                    type = 'error',
+                    position = 'center-right'
+                })
+            end
+        else
+            MySQL.update('UPDATE player_vehicles SET harness = ? WHERE plate = ?', { json.encode(harnessInfo), plate })
+        end
+    end
+end)
+
+RegisterNetEvent('stark_harness:server:ToggleSeatbelt', function(plate, ItemData)
+    local src = source
+    if not src then return end
+    local harnessInfo = hasHarness(plate)
+    if harnessInfo == nil then
+        return TriggerClientEvent('seatbelt:client:UseSeatbelt', src)
+    end
+    TriggerClientEvent('seatbelt:client:UseHarness', src, ItemData, false)
 end)
