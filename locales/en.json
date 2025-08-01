@@ -12,6 +12,8 @@
         "installlation_error_title": "Installation Error!",
         "installation_error_description": "You Already Have A Harness Installed!",
         "unsuccessful_removal_title": "Removal Unsuccessful!",
-        "unsuccessful_removal_description": "You Cannot Remove A Harness From A Vehicle You Do Not Own!"
+        "unsuccessful_removal_description": "You Cannot Remove A Harness From A Vehicle You Do Not Own!",
+        "unsuccessful_mechanic_removal_title": "Mechanic Removal Unsuccessful!",
+        "unsuccessful_mechanic_removal_description": "You Cannot Remove A Harness From A Vehicle The Player Does Not Own!"
     }
 }

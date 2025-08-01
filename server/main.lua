@@ -231,11 +231,90 @@ RegisterNetEvent('stark_harness:server:removeHarness', function(plate)
                         postion = 'center-right'
                     })
                 end
+            else
+                if Config.Notify == 'qb' then
+                    TriggerClientEvent('QBCore:Notify', src, locale('error.unsuccessful_removal_description'), 'error')
+                elseif Config.Notify == 'ox' then
+                    TriggerClientEvent('ox_lib:notify', src, {
+                        title = locale('error.unsuccessful_removal_title'),
+                        description = locale('error.unsuccessful_removal_description'),
+                        postion = 'center-right',
+                        type = 'error'
+                    })
+                elseif Config.Notify == 'lation' then
+                    exports.lation_ui:notify({
+                        title = locale('error.unsuccessful_removal_title'),
+                        message = locale('error.unsuccessful_removal_description'),
+                        type = 'error',
+                        position = 'center-right'
+                    })
+                end
             end
-        else
-            if Config.Notify == 'qb' then
-            elseif Config.Notify == 'ox' then
-            elseif Config.Notify == 'lation' then
+        elseif (Player.PlayerData.job.type == Config.MechanicJobType) then
+            if (result[1].harness) ~= nil then
+                MySQL.update('UPDATE player_vehicles SET harness = ? WHERE plate = ?', { NULL, plate })
+                local harnessInfo = json.decode(result[1].harness)
+                local data = {}
+                if harnessInfo.uses == nil then harnessInfo.uses = 20 end
+                data = {
+                    uses = harnessInfo.uses,
+                    damage = harnessInfo.damage
+                }
+                if Config.Inventory == 'qb' then
+                    exports['qb-inventory']:AddItem(src, 'harness', 1, false, data)
+                    if Config.RemoveWithItem then
+                        Wait(3000)
+                        exports['qb-inventory']:RemoveItem(src, 'removal_tool', 1, false)
+                    end
+                elseif Config.Inventory == 'ps' then
+                    exports['ps-inventory']:AddItem(src, 'harness', 1, false, data)
+                    if Config.RemoveWithItem then
+                        Wait(3000)
+                        exports['ps-inventory']:RemoveItem(src, 'removal_tool', 1, false)
+                    end
+                elseif Config.Inventory == 'ox' then
+                    local ox_inventory = exports.ox_inventory
+                    ox_inventory:AddItem(src, 'harness', 1, data)
+                    if Config.RemoveWithItem then
+                        Wait(3000)
+                        ox_inventory:RemoveItem(src, 'removal_tool', 1)
+                    end
+                end
+                if Config.Notify == 'qb' then
+                    TriggerClientEvent('QBCore:Notify', src, locale('info.successful_removal_description'), 'success')
+                elseif Config.Notify == 'ox' then
+                    TriggerClientEvent('ox_lib:notify', src, {
+                        title = locale('info.successful_removal_title'),
+                        description = locale('info.successful_removal_description'),
+                        postion = 'center-right',
+                        type = 'success'
+                    })
+                elseif Config.Notify == 'lation' then
+                    exports.lation_ui:notify({
+                        title = locale('info.successful_removal_title'),
+                        message = locale('info.successful_removal_description'),
+                        type = 'success',
+                        postion = 'center-right'
+                    })
+                end
+            else
+                if Config.Notify == 'qb' then
+                    TriggerClientEvent('QBCore:Notify', src, locale('error.unsuccessful_mechanic_removal_description'), 'error')
+                elseif Config.Notify == 'ox' then
+                    TriggerClientEvent('ox_lib:notify', src, {
+                        title = locale('error.unsuccessful_mechanic_removal_title'),
+                        description = locale('error.unsuccessful_mechanic_removal_description'),
+                        postion = 'center-right',
+                        type = 'error'
+                    })
+                elseif Config.Notify == 'lation' then
+                    exports.lation_ui:notify({
+                        title = locale('error.unsuccessful_mechanic_removal_title'),
+                        message = locale('error.unsuccessful_mechanic_removal_description'),
+                        type = 'error',
+                        postion = 'center-right'
+                    })
+                end
             end
         end
     end
