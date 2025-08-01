@@ -311,3 +311,184 @@ RegisterNetEvent('stark_harness:client:InstallHarness', function(ItemData)
         end
     end
 end)
+
+RegisterNetEvent('stark_harness:client:RemoveHarness', function()
+    local Player = PlayerPedId()
+    local Vehicle = GetVehiclePedIsIn(Player, false)
+    if GetPedInVehicleSeat(Vehicle, -1) == Player then
+        local Plate = lib.getVehicleProperties(Vehicle).plate
+        lib.callback('stark_harness:server:GetHarnessInfo', false, function(harnessInfo)
+            if harnessInfo ~= nil then
+                if Config.Progress == 'qb' then
+                    QBCore.Functions.Progressbar(locale('info.uninstall_progress_name'), locale('info.uninstall_progress_label'), Config.InstallTime, false, true, {
+                            disableMovement = true,
+                            disableCarMovement = true,
+                            disableMouse = false,
+                            disableCombat = true
+                        }, {}, {}, {}, function() -- DONE
+                            TriggerServerEvent('stark_harness:server:RemoveHarness', Plate)
+                        end, function() -- CANCELLED
+                            if Config.Notify == 'qb' then
+                                QBCore.Functions.Notify(locale('error.cancel_removal_description'), 'error')
+                            elseif Config.Notify == 'ox' then
+                                lib.notify({
+                                    title = locale('error.cancel_removal_title'),
+                                    description = locale('error.cancel_removal_description'),
+                                    position = 'center-right',
+                                    type = 'error'
+                                })
+                            elseif Config.Notify == 'lation' then
+                                exports.lation_ui:notify({
+                                    title = locale('error.cancel_removal_title'),
+                                    message = locale('error.cancel_removal_description'),
+                                    type = 'error',
+                                    position = 'center-right'
+                                })
+                            end
+                        end)
+                elseif Config.Progress == 'ox_bar' then
+                    if lib.progressBar({
+                            duration = Config.InstallTime,
+                            label = locale('info.uninstall_progress_label'),
+                            useWhileDead = false,
+                            canCancel = true,
+                            disable = {
+                                move = true,
+                                car = true,
+                                combat = true,
+                                mouse = false
+                            }
+                        }) then
+                        TriggerServerEvent('stark_harness:server:RemoveHarness', Plate)
+                    else
+                        if Config.Notify == 'qb' then
+                            QBCore.Functions.Notify(locale('error.cancel_removal_description'), 'error')
+                        elseif Config.Notify == 'ox' then
+                            lib.notify({
+                                title = locale('error.cancel_removal_title'),
+                                description = locale('error.cancel_removal_description'),
+                                position = 'center-right',
+                                type = 'error'
+                            })
+                        elseif Config.Notify == 'lation' then
+                            exports.lation_ui:notify({
+                                title = locale('error.cancel_removal_title'),
+                                message = locale('error.cancel_removal_description'),
+                                type = 'error',
+                                position = 'center-right'
+                            })
+                        end
+                    end
+                elseif Config.Progress == 'ox_circle' then
+                    if lib.progressCircle({
+                            duration = Config.InstallTime,
+                            label = locale('info.uninstall_progress_label'),
+                            position = 'bottom',
+                            useWhileDead = false,
+                            canCancel = true,
+                            disable = {
+                                move = true,
+                                car = true,
+                                combat = true,
+                                mouse = false
+                            }
+                        }) then
+                        TriggerServerEvent('stark_harness:server:RemoveHarness', Plate)
+                    else
+                        if Config.Notify == 'qb' then
+                            QBCore.Functions.Notify(locale('error.cancel_removal_description'), 'error')
+                        elseif Config.Notify == 'ox' then
+                            lib.notify({
+                                title = locale('error.cancel_removal_title'),
+                                description = locale('error.cancel_removal_description'),
+                                position = 'center-right',
+                                type = 'error'
+                            })
+                        elseif Config.Notify == 'lation' then
+                            exports.lation_ui:notify({
+                                title = locale('error.cancel_removal_title'),
+                                message = locale('error.cancel_removal_description'),
+                                type = 'error',
+                                position = 'center-right'
+                            })
+                        end
+                    end
+                elseif Config.Progress == 'lation' then
+                    if exports.lation_ui:progressBar({
+                            label = locale('info.uninstall_progress_label'),
+                            duration = Config.InstallTime,
+                            icon = 'fas fa-wrench',
+                            iconColor = '#FFFFFF',
+                            color = '#0000FF',
+                            -- steps = {}, -- FEATURE COMING SOON
+                            canCancel = true,
+                            useWhileDead = false,
+                            disable = {
+                                move = true,
+                                sprint = true,
+                                car = true,
+                                combat = true,
+                                mouse = false
+                            }
+                        }) then
+                        TriggerServerEvent('stark_harness:server:RemoveHarness', Plate)
+                    else
+                        if Config.Notify == 'qb' then
+                            QBCore.Functions.Notify(locale('error.cancel_removal_description'), 'error')
+                        elseif Config.Notify == 'ox' then
+                            lib.notify({
+                                title = locale('error.cancel_removal_title'),
+                                description = locale('error.cancel_removal_description'),
+                                position = 'center-right',
+                                type = 'error'
+                            })
+                        elseif Config.Notify == 'lation' then
+                            exports.lation_ui:notify({
+                                title = locale('error.cancel_removal_title'),
+                                message = locale('error.cancel_removal_description'),
+                                type = 'error',
+                                position = 'center-right'
+                            })
+                        end
+                    end
+                end
+            else
+                if Config.Notify == 'qb' then
+                    QBCore.Functions.Notify(locale('error.removal_error_description'), 'error')
+                elseif Config.Notify == 'ox' then
+                    lib.notify({
+                        title = locale('error.removal_error_title'),
+                        description = locale('error.removal_error_description'),
+                        position = 'center-right',
+                        type = 'error'
+                    })
+                elseif Config.Notify == 'lation' then
+                    exports.lation_ui:notify({
+                        title = locale('error.removal_error_title'),
+                        message = locale('error.removal_error_description'),
+                        type = 'error',
+                        position = 'center-right'
+                    })
+                end
+            end
+        end, Plate)
+    else
+        if Config.Notify == 'qb' then
+            QBCore.Functions.Notify(locale('error.driver_seat_removal_error_description'), 'error')
+        elseif Config.Notify == 'ox' then
+            lib.notify({
+                title = locale('error.driver_seat_removal_error_title'),
+                description = locale('error.driver_seat_removal_error_description'),
+                position = 'center-right',
+                type = 'error'
+            })
+        elseif Config.Notify == 'lation' then
+            exports.lation_ui:notify({
+                title = locale('error.driver_seat_removal_error_title'),
+                message = locale('driver_seat_removal_error_description'),
+                type = 'error',
+                position = 'center-right'
+            })
+        end
+    end
+end)
