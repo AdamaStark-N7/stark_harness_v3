@@ -112,7 +112,19 @@ TriggerServerEvent('stark_harness:server:DamageHarness', -1)
 
 For reference, the following lines should be changed if using the latest version of qb-smallresources: 129, 139, 151, and 161.
 
-5. In ```qb-smallresources/client/seatbelt.lua```, add the following function snippet at line 79, if using the latest version of qb-smallresources:
+5. In ```qb-smallresources/client/seatbelt.lua```, locate the following:
+
+```lua
+---Checks whether the player has their seatbelt on or not
+---@return boolean
+local function hasSeatbeltOn()
+    return seatbeltOn
+end
+
+exports("HasSeatbeltOn", hasSeatbeltOn)
+```
+
+and replace it with the following snippet of code:
 
 ```lua
 ---Checks whether you have the seatbelt on or not
@@ -154,7 +166,7 @@ end)
 ALTER TABLE player_vehicles ADD COLUMN `harness` VARCHAR(50) NULL;
 ```
 
-9. If you would like to have the option to exit your vehicle without first undoing the seatbelt or harness, in qb-smallresources/client/seatbelt.lua, locate ```function SeatBeltLoop()``` and replace it with the following snippet of code:
+9. If you would like to have the option to exit your vehicle without first undoing the seatbelt or harness, in ```qb-smallresources/client/seatbelt.lua```, locate ```function SeatBeltLoop()``` and replace it with the following snippet of code:
 
 ```lua
 function SeatBeltLoop()
