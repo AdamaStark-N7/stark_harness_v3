@@ -48,7 +48,7 @@ RegisterNetEvent('stark_harness:server:InstallHarness', function(harnessInfo, pl
                     TriggerClientEvent('ox_lib:notify', src, {
                         title = locale('info.successful_install_title'),
                         description = locale('info.successful_install_description'),
-                        postion = 'center-right',
+                        position = 'center-right',
                         type = 'success'
                     })
                 elseif Config.Notify == 'lation' then
@@ -56,12 +56,12 @@ RegisterNetEvent('stark_harness:server:InstallHarness', function(harnessInfo, pl
                         title = locale('info.successful_install_title'),
                         message = locale('info.successful_install_description'),
                         type = 'success',
-                        postion = 'center-right'
+                        position = 'center-right'
                     })
                 end
             end
         else
-            if (result[1].citizenid == player.PlayerData.citizenid) then
+            if (result[1].citizenid == Player.PlayerData.citizenid) then
                 if harnessInfo ~= nil then
                     MySQL.update('UPDATE player_vehicles SET harness = ? WHERE plate = ?', { json.encode(harnessInfo), plate })
                     if Config.Inventory == 'qb' then
@@ -78,7 +78,7 @@ RegisterNetEvent('stark_harness:server:InstallHarness', function(harnessInfo, pl
                         TriggerClientEvent('ox_lib:notify', src, {
                             title = locale('info.successful_install_title'),
                             description = locale('info.successful_install_description'),
-                            postion = 'center-right',
+                            position = 'center-right',
                             type = 'success'
                         })
                     elseif Config.Notify == 'lation' then
@@ -86,7 +86,7 @@ RegisterNetEvent('stark_harness:server:InstallHarness', function(harnessInfo, pl
                             title = locale('info.successful_install_title'),
                             message = locale('info.successful_install_description'),
                             type = 'success',
-                            postion = 'center-right'
+                            position = 'center-right'
                         })
                     end
                 end
@@ -107,7 +107,7 @@ RegisterNetEvent('stark_harness:server:InstallHarness', function(harnessInfo, pl
                         TriggerClientEvent('ox_lib:notify', src, {
                             title = locale('info.successful_install_title'),
                             description = locale('info.successful_install_description'),
-                            postion = 'center-right',
+                            position = 'center-right',
                             type = 'success'
                         })
                     elseif Config.Notify == 'lation' then
@@ -115,7 +115,7 @@ RegisterNetEvent('stark_harness:server:InstallHarness', function(harnessInfo, pl
                             title = locale('info.successful_install_title'),
                             message = locale('info.successful_install_description'),
                             type = 'success',
-                            postion = 'center-right'
+                            position = 'center-right'
                         })
                     end
                 end
@@ -126,7 +126,7 @@ RegisterNetEvent('stark_harness:server:InstallHarness', function(harnessInfo, pl
                     TriggerClientEvent('ox_lib:notify', src {
                         title = locale('error.unsuccessful_install_title'),
                         description = locale('error.unsuccessful_install_description'),
-                        postion = 'center-right',
+                        position = 'center-right',
                         type = 'error'
                     })
                 elseif Config.Notify == 'lation' then
@@ -134,7 +134,7 @@ RegisterNetEvent('stark_harness:server:InstallHarness', function(harnessInfo, pl
                         title = locale('error.unsuccessful_install_title'),
                         message = locale('error.unsuccessful_install_description'),
                         type = 'error',
-                        postion = 'center-right'
+                        position = 'center-right'
                     })
                 end
             end
@@ -146,7 +146,7 @@ RegisterNetEvent('stark_harness:server:InstallHarness', function(harnessInfo, pl
             TriggerClientEvent('ox_lib:notify', src {
                 title = locale('error.unsuccessful_install_title'),
                 description = locale('error.unsuccessful_install_description'),
-                postion = 'center-right',
+                position = 'center-right',
                 type = 'error'
             })
         elseif Config.Notify == 'lation' then
@@ -154,7 +154,7 @@ RegisterNetEvent('stark_harness:server:InstallHarness', function(harnessInfo, pl
                 title = locale('error.unsuccessful_install_title'),
                 message = locale('error.unsuccessful_install_description'),
                 type = 'error',
-                postion = 'center-right'
+                position = 'center-right'
             })
         end
     else
@@ -164,7 +164,7 @@ RegisterNetEvent('stark_harness:server:InstallHarness', function(harnessInfo, pl
             TriggerClientEvent('ox_lib:notify', src, {
                 title = locale('error.installlation_error_title'),
                 description = locale('error.installation_error_description'),
-                postion = 'center-right',
+                position = 'center-right',
                 type = 'error'
             })
         elseif Config.Notify == 'lation' then
@@ -172,7 +172,7 @@ RegisterNetEvent('stark_harness:server:InstallHarness', function(harnessInfo, pl
                 title = locale('error.installlation_error_title'),
                 message = locale('error.installation_error_description'),
                 type = 'error',
-                postion = 'center-right'
+                position = 'center-right'
             })
         end
     end
@@ -220,7 +220,7 @@ RegisterNetEvent('stark_harness:server:RemoveHarness', function(plate)
                     TriggerClientEvent('ox_lib:notify', src, {
                         title = locale('info.successful_removal_title'),
                         description = locale('info.successful_removal_description'),
-                        postion = 'center-right',
+                        position = 'center-right',
                         type = 'success'
                     })
                 elseif Config.Notify == 'lation' then
@@ -228,7 +228,7 @@ RegisterNetEvent('stark_harness:server:RemoveHarness', function(plate)
                         title = locale('info.successful_removal_title'),
                         message = locale('info.successful_removal_description'),
                         type = 'success',
-                        postion = 'center-right'
+                        position = 'center-right'
                     })
                 end
             else
@@ -238,7 +238,7 @@ RegisterNetEvent('stark_harness:server:RemoveHarness', function(plate)
                     TriggerClientEvent('ox_lib:notify', src, {
                         title = locale('error.unsuccessful_removal_title'),
                         description = locale('error.unsuccessful_removal_description'),
-                        postion = 'center-right',
+                        position = 'center-right',
                         type = 'error'
                     })
                 elseif Config.Notify == 'lation' then
@@ -286,7 +286,7 @@ RegisterNetEvent('stark_harness:server:RemoveHarness', function(plate)
                     TriggerClientEvent('ox_lib:notify', src, {
                         title = locale('info.successful_removal_title'),
                         description = locale('info.successful_removal_description'),
-                        postion = 'center-right',
+                        position = 'center-right',
                         type = 'success'
                     })
                 elseif Config.Notify == 'lation' then
@@ -294,7 +294,7 @@ RegisterNetEvent('stark_harness:server:RemoveHarness', function(plate)
                         title = locale('info.successful_removal_title'),
                         message = locale('info.successful_removal_description'),
                         type = 'success',
-                        postion = 'center-right'
+                        position = 'center-right'
                     })
                 end
             else
@@ -304,7 +304,7 @@ RegisterNetEvent('stark_harness:server:RemoveHarness', function(plate)
                     TriggerClientEvent('ox_lib:notify', src, {
                         title = locale('error.unsuccessful_mechanic_removal_title'),
                         description = locale('error.unsuccessful_mechanic_removal_description'),
-                        postion = 'center-right',
+                        position = 'center-right',
                         type = 'error'
                     })
                 elseif Config.Notify == 'lation' then
@@ -312,7 +312,7 @@ RegisterNetEvent('stark_harness:server:RemoveHarness', function(plate)
                         title = locale('error.unsuccessful_mechanic_removal_title'),
                         message = locale('error.unsuccessful_mechanic_removal_description'),
                         type = 'error',
-                        postion = 'center-right'
+                        position = 'center-right'
                     })
                 end
             end
@@ -340,7 +340,7 @@ RegisterNetEvent('stark_harness:server:DamageHarness', function(damage, plate)
                 TriggerClientEvent('ox_lib:notify', src, {
                     title = locale('error.harness_broke_title'),
                     description = locale('error.harness_broke_description'),
-                    postion = 'center-right',
+                    position = 'center-right',
                     type = 'error'
                 })
             elseif Config.Notify == 'lation' then
