@@ -25,7 +25,7 @@ local function ejectFromVehicle()
     local coords = GetOffsetFromEntityInWorldCoords(veh, 1.0, 0.0, 1.0)
     SetEntityCoords(ped, coords.x, coords.y, coords.z)
     Wait(1)
-    SetPedToRagdoll(ped, 5511, 5511, 0, 0, 0, 0)
+    SetPedToRagdoll(ped, 5511, 5511, 0, false, false, false)
     SetEntityVelocity(ped, veloc.x * 4, veloc.y * 4, veloc.z * 4)
     local ejectSpeed = math.ceil(GetEntitySpeed(ped) * 8)
     if GetEntityHealth(ped) - ejectSpeed > 0 then
@@ -127,7 +127,7 @@ RegisterNetEvent('QBCore:Client:EnteredVehicle', function()
                                 if not harnessOn then
                                     ejectFromVehicle()
                                 else
-                                    TriggerServerEvent('stark_harness:server:DamageHarness', -1)
+                                    TriggerServerEvent('stark_harness:server:damageHarness', -1)
                                 end
                             end
                         elseif (seatbeltOn or harnessOn) and not IsThisModelABike(currVehicle) then
@@ -136,7 +136,7 @@ RegisterNetEvent('QBCore:Client:EnteredVehicle', function()
                                     if not harnessOn then
                                         ejectFromVehicle()
                                     else
-                                        TriggerServerEvent('stark_harness:server:DamageHarness', -1)
+                                        TriggerServerEvent('stark_harness:server:damageHarness', -1)
                                     end
                                 end
                             end
@@ -147,7 +147,7 @@ RegisterNetEvent('QBCore:Client:EnteredVehicle', function()
                                 if not harnessOn then
                                     ejectFromVehicle()
                                 else
-                                    TriggerServerEvent('stark_harness:server:DamageHarness', -1)
+                                    TriggerServerEvent('stark_harness:server:damageHarness', -1)
                                 end
                             end
                         elseif (seatbeltOn or harnessOn) and not IsThisModelABike(currVehicle) then
@@ -156,7 +156,7 @@ RegisterNetEvent('QBCore:Client:EnteredVehicle', function()
                                     if not harnessOn then
                                         ejectFromVehicle()
                                     else
-                                        TriggerServerEvent('stark_harness:server:DamageHarness', -1)
+                                        TriggerServerEvent('stark_harness:server:damageHarness', -1)
                                     end
                                 end
                             end
@@ -271,7 +271,7 @@ RegisterCommand('toggleseatbelt', function()
     if class == 8 or class == 13 or class == 14 then return end
     local vehicle = GetVehiclePedIsIn(PlayerPedId(), false)
     local plate = QBCore.Functions.GetPlate(vehicle)
-    TriggerServerEvent('stark_harness:server:ToggleSeatBelt', plate)
+    TriggerServerEvent('stark_harness:server:toggleSeatBelt', plate)
 end, false)
 
 RegisterKeyMapping('toggleseatbelt', 'Toggle Seatbelt', 'keyboard', 'B')

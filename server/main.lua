@@ -8,6 +8,12 @@ end
 
 local QBCore = exports['qb-core']:GetCoreObject()
 
+lib.callback.register('stark_harness:server:GetHarnessInfo', function(source, plate, harnessInfo)
+    if plate == nil then return end
+    local harnessInfo = hasHarness(plate)
+    return harnessInfo
+end)
+
 function hasHarness(plate)
     local result = MySQL.query.await('SELECT * FROM player_vehicles WHERE plate = ?', { plate })
     harnessInfo = nil
@@ -19,13 +25,7 @@ function hasHarness(plate)
     return harnessInfo
 end
 
-lib.callback.register('stark_harness:server:GetHarnessInfo', function(source, plate, harnessInfo)
-    if plate == nil then return end
-    local harnessInfo = hasHarness(plate)
-    return harnessInfo
-end)
-
-RegisterNetEvent('stark_harness:server:InstallHarness', function(harnessInfo, plate)
+RegisterNetEvent('stark_harness:server:installHarness', function(harnessInfo, plate)
     local src = source
     if plate == nil then return end
     local Player = QBCore.Functions.GetPlayer(src)
@@ -51,13 +51,13 @@ RegisterNetEvent('stark_harness:server:InstallHarness', function(harnessInfo, pl
                         position = 'center-right',
                         type = 'success'
                     })
-                elseif Config.Notify == 'lation' then
-                    exports.lation_ui:notify({
-                        title = locale('info.successful_install_title'),
-                        message = locale('info.successful_install_description'),
-                        type = 'success',
-                        position = 'center-right'
-                    })
+                -- elseif Config.Notify == 'lation' then
+                --     exports.lation_ui:notify({
+                --         title = locale('info.successful_install_title'),
+                --         message = locale('info.successful_install_description'),
+                --         type = 'success',
+                --         position = 'center-right'
+                --     })
                 end
             end
         else
@@ -81,13 +81,13 @@ RegisterNetEvent('stark_harness:server:InstallHarness', function(harnessInfo, pl
                             position = 'center-right',
                             type = 'success'
                         })
-                    elseif Config.Notify == 'lation' then
-                        exports.lation_ui:notify({
-                            title = locale('info.successful_install_title'),
-                            message = locale('info.successful_install_description'),
-                            type = 'success',
-                            position = 'center-right'
-                        })
+                    -- elseif Config.Notify == 'lation' then
+                    --     exports.lation_ui:notify({
+                    --         title = locale('info.successful_install_title'),
+                    --         message = locale('info.successful_install_description'),
+                    --         type = 'success',
+                    --         position = 'center-right'
+                    --     })
                     end
                 end
             elseif (Player.PlayerData.job.type == Config.MechanicJobType) then
@@ -110,13 +110,13 @@ RegisterNetEvent('stark_harness:server:InstallHarness', function(harnessInfo, pl
                             position = 'center-right',
                             type = 'success'
                         })
-                    elseif Config.Notify == 'lation' then
-                        exports.lation_ui:notify({
-                            title = locale('info.successful_install_title'),
-                            message = locale('info.successful_install_description'),
-                            type = 'success',
-                            position = 'center-right'
-                        })
+                    -- elseif Config.Notify == 'lation' then
+                    --     exports.lation_ui:notify({
+                    --         title = locale('info.successful_install_title'),
+                    --         message = locale('info.successful_install_description'),
+                    --         type = 'success',
+                    --         position = 'center-right'
+                    --     })
                     end
                 end
             else
@@ -129,13 +129,13 @@ RegisterNetEvent('stark_harness:server:InstallHarness', function(harnessInfo, pl
                         position = 'center-right',
                         type = 'error'
                     })
-                elseif Config.Notify == 'lation' then
-                    exports.lation_ui:notify({
-                        title = locale('error.unsuccessful_install_title'),
-                        message = locale('error.unsuccessful_install_description'),
-                        type = 'error',
-                        position = 'center-right'
-                    })
+                -- elseif Config.Notify == 'lation' then
+                --     exports.lation_ui:notify({
+                --         title = locale('error.unsuccessful_install_title'),
+                --         message = locale('error.unsuccessful_install_description'),
+                --         type = 'error',
+                --         position = 'center-right'
+                --     })
                 end
             end
         end
@@ -149,13 +149,13 @@ RegisterNetEvent('stark_harness:server:InstallHarness', function(harnessInfo, pl
                 position = 'center-right',
                 type = 'error'
             })
-        elseif Config.Notify == 'lation' then
-            exports.lation_ui:notify({
-                title = locale('error.unsuccessful_install_title'),
-                message = locale('error.unsuccessful_install_description'),
-                type = 'error',
-                position = 'center-right'
-            })
+        -- elseif Config.Notify == 'lation' then
+        --     exports.lation_ui:notify({
+        --         title = locale('error.unsuccessful_install_title'),
+        --         message = locale('error.unsuccessful_install_description'),
+        --         type = 'error',
+        --         position = 'center-right'
+        --     })
         end
     else
         if Config.Notify == 'qb' then
@@ -167,18 +167,18 @@ RegisterNetEvent('stark_harness:server:InstallHarness', function(harnessInfo, pl
                 position = 'center-right',
                 type = 'error'
             })
-        elseif Config.Notify == 'lation' then
-            exports.lation_ui:notify({
-                title = locale('error.installlation_error_title'),
-                message = locale('error.installation_error_description'),
-                type = 'error',
-                position = 'center-right'
-            })
+        -- elseif Config.Notify == 'lation' then
+        --     exports.lation_ui:notify({
+        --         title = locale('error.installlation_error_title'),
+        --         message = locale('error.installation_error_description'),
+        --         type = 'error',
+        --         position = 'center-right'
+        --     })
         end
     end
 end)
 
-RegisterNetEvent('stark_harness:server:RemoveHarness', function(plate)
+RegisterNetEvent('stark_harness:server:removeHarness', function(plate)
     local src = source
     if plate == nil then return end
     local Player = QBCore.Functions.GetPlayer(src)
@@ -223,13 +223,13 @@ RegisterNetEvent('stark_harness:server:RemoveHarness', function(plate)
                         position = 'center-right',
                         type = 'success'
                     })
-                elseif Config.Notify == 'lation' then
-                    exports.lation_ui:notify({
-                        title = locale('info.successful_removal_title'),
-                        message = locale('info.successful_removal_description'),
-                        type = 'success',
-                        position = 'center-right'
-                    })
+                -- elseif Config.Notify == 'lation' then
+                --     exports.lation_ui:notify({
+                --         title = locale('info.successful_removal_title'),
+                --         message = locale('info.successful_removal_description'),
+                --         type = 'success',
+                --         position = 'center-right'
+                --     })
                 end
             else
                 if Config.Notify == 'qb' then
@@ -241,13 +241,13 @@ RegisterNetEvent('stark_harness:server:RemoveHarness', function(plate)
                         position = 'center-right',
                         type = 'error'
                     })
-                elseif Config.Notify == 'lation' then
-                    exports.lation_ui:notify({
-                        title = locale('error.unsuccessful_removal_title'),
-                        message = locale('error.unsuccessful_removal_description'),
-                        type = 'error',
-                        position = 'center-right'
-                    })
+                -- elseif Config.Notify == 'lation' then
+                --     exports.lation_ui:notify({
+                --         title = locale('error.unsuccessful_removal_title'),
+                --         message = locale('error.unsuccessful_removal_description'),
+                --         type = 'error',
+                --         position = 'center-right'
+                --     })
                 end
             end
         elseif (Player.PlayerData.job.type == Config.MechanicJobType) then
@@ -289,13 +289,13 @@ RegisterNetEvent('stark_harness:server:RemoveHarness', function(plate)
                         position = 'center-right',
                         type = 'success'
                     })
-                elseif Config.Notify == 'lation' then
-                    exports.lation_ui:notify({
-                        title = locale('info.successful_removal_title'),
-                        message = locale('info.successful_removal_description'),
-                        type = 'success',
-                        position = 'center-right'
-                    })
+                -- elseif Config.Notify == 'lation' then
+                --     exports.lation_ui:notify({
+                --         title = locale('info.successful_removal_title'),
+                --         message = locale('info.successful_removal_description'),
+                --         type = 'success',
+                --         position = 'center-right'
+                --     })
                 end
             else
                 if Config.Notify == 'qb' then
@@ -307,20 +307,20 @@ RegisterNetEvent('stark_harness:server:RemoveHarness', function(plate)
                         position = 'center-right',
                         type = 'error'
                     })
-                elseif Config.Notify == 'lation' then
-                    exports.lation_ui:notify({
-                        title = locale('error.unsuccessful_mechanic_removal_title'),
-                        message = locale('error.unsuccessful_mechanic_removal_description'),
-                        type = 'error',
-                        position = 'center-right'
-                    })
+                -- elseif Config.Notify == 'lation' then
+                --     exports.lation_ui:notify({
+                --         title = locale('error.unsuccessful_mechanic_removal_title'),
+                --         message = locale('error.unsuccessful_mechanic_removal_description'),
+                --         type = 'error',
+                --         position = 'center-right'
+                --     })
                 end
             end
         end
     end
 end)
 
-RegisterNetEvent('stark_harness:server:DamageHarness', function(damage, plate)
+RegisterNetEvent('stark_harness:server:damageHarness', function(damage, plate)
     local src = source
     if plate == nil then
         local Player = GetPlayerPed(src)
@@ -343,13 +343,13 @@ RegisterNetEvent('stark_harness:server:DamageHarness', function(damage, plate)
                     position = 'center-right',
                     type = 'error'
                 })
-            elseif Config.Notify == 'lation' then
-                exports.lation_ui:notify({
-                    title = locale('error.harness_broke_title'),
-                    message = locale('error.harness_broke_description'),
-                    type = 'error',
-                    position = 'center-right'
-                })
+            -- elseif Config.Notify == 'lation' then
+            --     exports.lation_ui:notify({
+            --         title = locale('error.harness_broke_title'),
+            --         message = locale('error.harness_broke_description'),
+            --         type = 'error',
+            --         position = 'center-right'
+            --     })
             end
         else
             MySQL.update('UPDATE player_vehicles SET harness = ? WHERE plate = ?', { json.encode(harnessInfo), plate })
@@ -357,7 +357,7 @@ RegisterNetEvent('stark_harness:server:DamageHarness', function(damage, plate)
     end
 end)
 
-RegisterNetEvent('stark_harness:server:ToggleSeatbelt', function(plate, ItemData)
+RegisterNetEvent('stark_harness:server:toggleSeatbelt', function(plate, ItemData)
     local src = source
     if not src then return end
     local harnessInfo = hasHarness(plate)

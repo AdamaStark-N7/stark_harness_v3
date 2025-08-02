@@ -4,12 +4,12 @@ if not lib.checkDependency('ox_lib', '3.30.0', true) then return end
 
 local QBCore = exports['qb-core']:GetCoreObject()
 
-RegisterNetEvent('stark_harness:client:InstallHarness', function(ItemData)
+RegisterNetEvent('stark_harness:client:installHarness', function(ItemData)
     local Player = PlayerPedId()
     local Vehicle = GetVehiclePedIsIn(Player, false)
     if GetPedInVehicleSeat(Vehicle, -1) == Player then
         local Class = GetVehicleClass(Vehicle)
-        local Plate = lib.getVehicleProperties(Vehicle).plate
+        local plate = lib.getVehicleProperties(Vehicle).plate
         if Vehicle and Class ~= 8 and Class ~= 13 and Class ~= 14 then
             lib.callback('stark_harness:server:GetHarnessInfo', false, function(harnessInfo)
                 if harnessInfo == nil then
@@ -51,7 +51,7 @@ RegisterNetEvent('stark_harness:client:InstallHarness', function(ItemData)
                                     end
                                 end
                                 installedHarnessInfo = { uses = harnessUses, damage = damage }
-                                TriggerServerEvent('stark_harness:server:InstallHarness', installedHarnessInfo, Plate)
+                                TriggerServerEvent('stark_harness:server:installHarness', installedHarnessInfo, plate)
                             end, function() -- CANCELLED
                                 if Config.Notify == 'qb' then
                                     QBCore.Functions.Notify(locale('error.cancel_installation_description'), 'error')
@@ -115,7 +115,7 @@ RegisterNetEvent('stark_harness:client:InstallHarness', function(ItemData)
                                 end
                             end
                             installedHarnessInfo = { uses = harnessUses, damage = damage }
-                            TriggerServerEvent('stark_harness:server:InstallHarness', installedHarnessInfo, Plate)
+                            TriggerServerEvent('stark_harness:server:installHarness', installedHarnessInfo, plate)
                         else -- CANCELLED
                             if Config.Notify == 'qb' then
                                 QBCore.Functions.Notify(locale('error.cancel_installation_description'), 'error')
@@ -180,7 +180,7 @@ RegisterNetEvent('stark_harness:client:InstallHarness', function(ItemData)
                                 end
                             end
                             installedHarnessInfo = { uses = harnessUses, damage = damage }
-                            TriggerServerEvent('stark_harness:server:InstallHarness', installedHarnessInfo, Plate)
+                            TriggerServerEvent('stark_harness:server:installHarness', installedHarnessInfo, plate)
                         else
                             if Config.Notify == 'qb' then
                                 QBCore.Functions.Notify(locale('error.cancel_installation_description'), 'error')
@@ -249,7 +249,7 @@ RegisterNetEvent('stark_harness:client:InstallHarness', function(ItemData)
                                 end
                             end
                             installedHarnessInfo = { uses = harnessUses, damage = damage }
-                            TriggerServerEvent('stark_harness:server:InstallHarness', installedHarnessInfo, Plate)
+                            TriggerServerEvent('stark_harness:server:installHarness', installedHarnessInfo, plate)
                         else
                             if Config.Notify == 'qb' then
                                 QBCore.Functions.Notify(locale('error.cancel_installation_description'), 'error')
@@ -289,7 +289,7 @@ RegisterNetEvent('stark_harness:client:InstallHarness', function(ItemData)
                         })
                     end
                 end
-            end, Plate)
+            end, plate)
         end
     else
         if Config.Notify == 'qb' then
@@ -312,11 +312,11 @@ RegisterNetEvent('stark_harness:client:InstallHarness', function(ItemData)
     end
 end)
 
-RegisterNetEvent('stark_harness:client:RemoveHarness', function()
+RegisterNetEvent('stark_harness:client:removeHarness', function()
     local Player = PlayerPedId()
     local Vehicle = GetVehiclePedIsIn(Player, false)
     if GetPedInVehicleSeat(Vehicle, -1) == Player then
-        local Plate = lib.getVehicleProperties(Vehicle).plate
+        local plate = lib.getVehicleProperties(Vehicle).plate
         lib.callback('stark_harness:server:GetHarnessInfo', false, function(harnessInfo)
             if harnessInfo ~= nil then
                 if Config.Progress == 'qb' then
@@ -326,7 +326,7 @@ RegisterNetEvent('stark_harness:client:RemoveHarness', function()
                             disableMouse = false,
                             disableCombat = true
                         }, {}, {}, {}, function() -- DONE
-                            TriggerServerEvent('stark_harness:server:RemoveHarness', Plate)
+                            TriggerServerEvent('stark_harness:server:RemoveHarness', plate)
                         end, function() -- CANCELLED
                             if Config.Notify == 'qb' then
                                 QBCore.Functions.Notify(locale('error.cancel_removal_description'), 'error')
@@ -359,7 +359,7 @@ RegisterNetEvent('stark_harness:client:RemoveHarness', function()
                                 mouse = false
                             }
                         }) then
-                        TriggerServerEvent('stark_harness:server:RemoveHarness', Plate)
+                        TriggerServerEvent('stark_harness:server:RemoveHarness', plate)
                     else
                         if Config.Notify == 'qb' then
                             QBCore.Functions.Notify(locale('error.cancel_removal_description'), 'error')
@@ -393,7 +393,7 @@ RegisterNetEvent('stark_harness:client:RemoveHarness', function()
                                 mouse = false
                             }
                         }) then
-                        TriggerServerEvent('stark_harness:server:RemoveHarness', Plate)
+                        TriggerServerEvent('stark_harness:server:RemoveHarness', plate)
                     else
                         if Config.Notify == 'qb' then
                             QBCore.Functions.Notify(locale('error.cancel_removal_description'), 'error')
@@ -431,7 +431,7 @@ RegisterNetEvent('stark_harness:client:RemoveHarness', function()
                                 mouse = false
                             }
                         }) then
-                        TriggerServerEvent('stark_harness:server:RemoveHarness', Plate)
+                        TriggerServerEvent('stark_harness:server:RemoveHarness', plate)
                     else
                         if Config.Notify == 'qb' then
                             QBCore.Functions.Notify(locale('error.cancel_removal_description'), 'error')
@@ -471,7 +471,7 @@ RegisterNetEvent('stark_harness:client:RemoveHarness', function()
                     })
                 end
             end
-        end, Plate)
+        end, plate)
     else
         if Config.Notify == 'qb' then
             QBCore.Functions.Notify(locale('error.driver_seat_removal_error_description'), 'error')

@@ -83,7 +83,7 @@ RegisterCommand('toggleseatbelt', function()
     if class == 8 or class == 13 or class == 14 then return end
     local vehicle = GetVehiclePedIsIn(PlayerPedId(), false)
     local plate = QBCore.Functions.GetPlate(vehicle)
-    TriggerServerEvent('stark_harness:server:ToggleSeatBelt', plate)
+    TriggerServerEvent('stark_harness:server:toggleSeatBelt', plate)
 end, false)
 
 RegisterKeyMapping('toggleseatbelt', 'Toggle Seatbelt', 'keyboard', 'B')
@@ -107,7 +107,7 @@ TriggerServerEvent('seatbelt:DoHarnessDamage', harnessHp, harnessData)
 with the following snippet of code:
 
 ```lua
-TriggerServerEvent('stark_harness:server:DamageHarness', -1)
+TriggerServerEvent('stark_harness:server:damageHarness', -1)
 ```
 
 For reference, the following lines should be changed if using the latest version of qb-smallresources: 129, 139, 151, and 161.
@@ -148,7 +148,7 @@ and replace it with the following snippet of code:
 
 ```lua
 QBCore.Functions.CreateUseableItem('harness', function(source, item)
-    TriggerClientEvent('stark_harness:client:InstallHarness', source, item)
+    TriggerClientEvent('stark_harness:client:installHarness', source, item)
 end)
 ```
 
@@ -156,7 +156,7 @@ end)
 
 ```lua
 QBCore.Functions.CreateUseableItem('removal_tool', function(source, item)
-    TriggerClientEvent('stark_harness:client:RemoveHarness', source, item)
+    TriggerClientEvent('stark_harness:client:removeHarness', source, item)
 end)
 ```
 
