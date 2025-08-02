@@ -58,6 +58,13 @@ RegisterNetEvent('stark_harness:server:installHarness', function(harnessInfo, pl
                 --         type = 'success',
                 --         position = 'center-right'
                 --     })
+                elseif Config.Notify == 'lation' then
+                    TriggerClientEvent('lation_ui:notify', src, {
+                        title = locale('info.successful_install_title'),
+                        message = locale('info.successful_install_description'),
+                        type = 'success',
+                        position = 'center-right'
+                    })
                 end
             end
         else
